@@ -39,7 +39,9 @@
 					</div>
 				</div>
 
-				<button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+				<button type="submit" class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2">
+					<span *ngIf="isLoading" class="loader"></span> Iniciar Sesión
+				</button>
 			</form>
 		</div>
 	</div>

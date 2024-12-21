@@ -16,6 +16,7 @@ import { Router } from '@angular/router'
 })
 export class LoginComponent implements OnInit {
 	loginForm: FormGroup
+	isLoading = false
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
 	ngOnInit(): void {}
 
 	onSubmit(): void {
+		this.isLoading = true
 		this.loginForm.markAllAsTouched()
 		if (!this.loginForm.valid) {
 			this.toastr.error('Please fill out the form correctly.')
@@ -48,10 +50,14 @@ export class LoginComponent implements OnInit {
 				this.localStorageService.setItem('user', JSON.stringify(res.body?.user))
 				this.toastr.success(res.body.message)
 
+				this.isLoading = false
 				if (role == 'user') return this.router.navigate(['product-listing'])
 				return this.router.navigate(['dashboard'])
 			},
-			error: (err) => this.toastr.error(err.error.message),
+			error: (err) => {
+				this.isLoading = false
+				this.toastr.error(err.error.message)
+			},
 		})
 	}
 }

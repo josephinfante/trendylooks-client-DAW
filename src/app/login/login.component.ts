@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 				this.toastr.success(res.body.message)
 
 				if (role == 'user') return this.router.navigate(['product-listing'])
-				return this.router.navigate(['product'])
+				return this.router.navigate(['dashboard'])
 			},
 			error: (err) => this.toastr.error(err.error.message),
 		})

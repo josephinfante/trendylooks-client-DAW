@@ -26,6 +26,7 @@ import { SettingsComponent } from './client/settings/settings.component'
 import { OrdersComponent } from './client/orders/orders.component'
 import { DashboardComponent } from './dashboard/dashboard.component'
 import { DashboardCardComponent } from './dashboard/dashboard-card/dashboard-card.component'
+import { OrderDetailComponent } from './order-detail/order-detail.component'
 
 export const routes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -61,6 +62,8 @@ export const routes: Routes = [
 	{ path: 'order/create', component: OrderEditComponent, canActivate: [AdminGuard] },
 	{ path: 'order/:id', component: OrderDetailsComponent, canActivate: [AdminGuard] },
 	{ path: 'order/edit/:id', component: OrderEditComponent, canActivate: [AdminGuard] },
+
+	{ path: 'order-detail', component: OrderDetailComponent, canActivate: [AdminGuard] },
 
 	// client routes
 	{ path: 'product-listing', component: ProductListingComponent },

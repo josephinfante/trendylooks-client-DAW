@@ -2,6 +2,21 @@ import { CommonModule } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
+import { LocalStorageService } from '../../services/local-storage.service'
+
+type Cart = {
+	id: number
+	codUsu: number
+	products: Items[]
+}
+
+type Items = {
+	codProd: number
+	nomProd: string
+	preProd: number
+	imgProd: string
+	quantity: number
+}
 
 @Component({
 	selector: 'app-cart',
@@ -11,40 +26,68 @@ import { RouterModule } from '@angular/router'
 	styleUrl: './cart.component.css',
 })
 export class CartComponent implements OnInit {
-	cartItems: any[] = []
+	cartItems: Items[] = []
 
-	constructor() {
-		this.cartItems = [
-			{ id: 1, nombre: 'Producto 1', cantidad: 2, precio: 25.0 },
-			{ id: 2, nombre: 'Producto 2', cantidad: 1, precio: 45.0 },
-		]
+	constructor(private localStorageService: LocalStorageService) {}
+
+	public ngOnInit(): void {
+		this.getData()
 	}
 
-	public ngOnInit(): void {}
-
-	public getTotal(): number {
-		return this.cartItems.reduce((acc, item) => acc + item.cantidad * item.precio, 0)
-	}
-
-	public updateQuantity(item: any): void {
-		if (item.cantidad < 1) {
-			item.cantidad = 1
+	public getData(): void {
+		const cart: Cart = JSON.parse(this.localStorageService.getItem('cart') || 'null')
+		if (cart) {
+			this.cartItems = cart.products
 		}
 	}
 
-	public increaseQuantity(item: any): void {
-		item.cantidad++
+	public getTotal(): number {
+		return this.cartItems.reduce((acc, item) => acc + item.quantity * item.preProd, 0)
+	}
+
+	public updateQuantity(item: Items): void {
+		if (item.quantity < 1) {
+			item.quantity = 1
+		}
+
+		let localCart: Cart = JSON.parse(this.localStorageService.getItem('cart') || 'null')
+
+		if (localCart) {
+			const productInCart = localCart.products.find((p) => p.codProd === item.codProd)
+			if (productInCart) {
+				productInCart.quantity = item.quantity
+				this.localStorageService.setItem('cart', JSON.stringify(localCart))
+			}
+		}
+	}
+
+	public increaseQuantity(item: Items): void {
+		item.quantity++
 		this.updateQuantity(item)
 	}
 
-	public decreaseQuantity(item: any): void {
-		if (item.cantidad > 1) {
-			item.cantidad--
+	public decreaseQuantity(item: Items): void {
+		if (item.quantity > 1) {
+			item.quantity--
 			this.updateQuantity(item)
 		}
 	}
 
-	public removeFromCart(item: any): void {
-		this.cartItems = this.cartItems.filter((cartItem) => cartItem.id !== item.id)
+	public removeFromCart(codProd: number): void {
+		this.cartItems = this.cartItems.filter((cartItem) => cartItem.codProd !== codProd)
+
+		let localCart: Cart = JSON.parse(this.localStorageService.getItem('cart') || 'null')
+
+		if (localCart) {
+			localCart.products = this.cartItems
+			this.localStorageService.setItem(
+				'cart',
+				JSON.stringify({
+					id: localCart.id,
+					codUsu: localCart.codUsu,
+					products: this.cartItems,
+				}),
+			)
+		}
 	}
 }

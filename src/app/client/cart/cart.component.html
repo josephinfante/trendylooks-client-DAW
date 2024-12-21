@@ -15,15 +15,15 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let item of cartItems">
-						<td>{{ item.nombre }}</td>
-						<td>{{ item.precio | currency: 'PEN ':'symbol' }}</td>
+						<td>{{ item.nomProd }}</td>
+						<td>{{ item.preProd | currency: 'PEN ':'symbol' }}</td>
 						<td>
 							<div class="d-flex justify-content-center align-items-center">
 								<!-- Minus Button -->
 								<button
 									class="btn btn-outline-secondary btn-sm"
 									(click)="decreaseQuantity(item)"
-									[disabled]="item.cantidad === 1"
+									[disabled]="item.quantity === 1"
 									style="width: 38px; height: 38px"
 								>
 									-
@@ -34,7 +34,7 @@
 									type="number"
 									class="form-control mx-2 text-center"
 									style="width: 60px"
-									[(ngModel)]="item.cantidad"
+									[(ngModel)]="item.quantity"
 									(change)="updateQuantity(item)"
 									(min)="(1)"
 								/>
@@ -49,9 +49,9 @@
 								</button>
 							</div>
 						</td>
-						<td>{{ item.cantidad * item.precio | currency: 'PEN ':'symbol' }}</td>
+						<td>{{ item.quantity * item.preProd | currency: 'PEN ':'symbol' }}</td>
 						<td>
-							<button class="btn btn-danger btn-sm" (click)="removeFromCart(item)">Eliminar</button>
+							<button class="btn btn-danger btn-sm" (click)="removeFromCart(item.codProd)">Eliminar</button>
 						</td>
 					</tr>
 				</tbody>

@@ -9,7 +9,7 @@ export class HttpApiService {
 	protected baseUrl: string
 
 	constructor(private http: HttpClient) {
-		this.baseUrl = 'http://localhost:8080'
+		this.baseUrl = 'https://1pjzxhwc-8080.brs.devtunnels.ms'
 	}
 
 	get<T>(endpoint: string): Observable<HttpResponse<T>> {

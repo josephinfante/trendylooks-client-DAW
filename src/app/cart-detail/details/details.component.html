@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <!-- Información de la categoría -->
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg">
+          <div class="card-header bg-info text-white text-center">
+            <h5>Detalle de Detalle Carrito</h5>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="codDetCarr" class="form-label fw-bold text-info">Código</label>
+              <input type="text" id="codDetCarr" class="form-control" value="{{ cartDetail?.codDetCarr }}" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="codCarr" class="form-label fw-bold text-info">Carrito</label>
+              <input type="text" id="codCarr" class="form-control" value="{{ cartDetail?.codCarr }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="codProd" class="form-label fw-bold text-info">Producto</label>
+                <input type="text" id="codProd" class="form-control" value="{{ cartDetail?.codProd }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="canDetCarr" class="form-label fw-bold text-info">Cantidad</label>
+                <input type="text" id="canDetCarr" class="form-control" value="{{ cartDetail?.canDetCarr }}" readonly>
+            </div>
+            <!-- Botones -->
+            <div class="text-center">
+              <button backButton class="btn btn-outline-danger">Volver</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,41 @@
+<div class="card h-100 shadow-sm">
+    <div class="card-header" [ngClass]="[cardData.textColor, cardData.colorClass]">
+      <h5 class="card-title text-center mb-0">{{ cardData.title }}</h5>
+    </div>
+    
+    <div class="card-body text-center">
+      <!-- Imagen de la tarjeta -->
+      <div>
+        <ng-container *ngIf="cardData.image as image">
+          <fa-icon [icon]="image" [style.fontSize]="'75px'" [ngClass]="cardData.iconColor"></fa-icon>
+        </ng-container>        
+      </div>
+      
+      <!-- Tabla de información de la tarjeta -->
+      <table class="table table-bordered table-striped mb-0">
+        <thead [ngClass]="cardData.tableColor">
+          <tr>
+            <th colspan="2" class="text-center">Información General</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Total:</td>
+            <td>{{ cardData.total ?? 'N/A' }}</td>
+          </tr>
+          <tr>
+            <td>Active:</td>
+            <td>{{ cardData.active ?? 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="card-footer bg-white">
+      <div class="d-flex gap-2 justify-content-center">
+        <a [href]="cardData.link1 || '#'" class="btn btn-outline-primary">Ver Detalles</a>
+        <a [href]="cardData.link2 || '#'" class="btn btn-outline-success">Registrar</a>
+      </div>
+    </div>
+  </div>
+  

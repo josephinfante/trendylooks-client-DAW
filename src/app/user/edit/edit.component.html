@@ -1,0 +1,49 @@
+<div class="container py-3 w-25">
+	<div class="d-flex justify-content-between align-items-center">
+		<button backButton class="btn btn-dark mb-3">Volver</button>
+		<h2>{{ isEdit ? 'Editar' : 'Crear' }} Usuario</h2>
+	</div>
+	<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+		<div class="mb-3" *ngIf="isEdit">
+			<label for="codUsu" class="form-label">Código</label>
+			<input type="text" id="codUsu" formControlName="codUsu" class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label for="nomUsu" class="form-label">Nombre</label>
+			<input type="text" id="nomUsu" formControlName="nomUsu" class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label for="apeUsu" class="form-label">Apellido</label>
+			<input type="text" id="apeUsu" formControlName="apeUsu" class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label for="correoUsu" class="form-label">Correo Electrónico</label>
+			<input type="email" id="correoUsu" formControlName="correoUsu" class="form-control" />
+		</div>
+		<div class="mb-3" *ngIf="!isEdit">
+			<label for="contraUsu" class="form-label">Contraseña</label>
+			<input type="password" id="contraUsu" formControlName="contraUsu" class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label for="rolUsu" class="form-label">Rol</label>
+			<select id="rolUsu" formControlName="rolUsu" class="form-select">
+				<option value="0">Usuario</option>
+				<option value="1">Administrador</option>
+			</select>
+		</div>
+		<div class="mb-3">
+			<label for="estUsu" class="form-label">Estado</label>
+			<select id="estUsu" formControlName="estUsu" class="form-select">
+				<option value="0">Inactivo</option>
+				<option value="1">Activo</option>
+			</select>
+		</div>
+		<div class="mb-3" *ngIf="isEdit">
+			<label for="fecUsu" class="form-label">Fecha</label>
+			<input type="date" id="fecUsu" formControlName="fecUsu" class="form-control" />
+		</div>
+		<button type="submit" class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2">
+			<span *ngIf="isLoading" class="loader"></span> {{ isEdit ? 'Actualizar' : 'Registrar' }}
+		</button>
+	</form>
+</div>

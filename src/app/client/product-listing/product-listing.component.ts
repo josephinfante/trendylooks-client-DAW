@@ -8,6 +8,19 @@ import { StoreService } from '../../services/store.service'
 import { ToastrService } from 'ngx-toastr'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { FormsModule } from '@angular/forms'
+import { LocalStorageService } from '../../services/local-storage.service'
+
+type Cart = {
+	id: number
+	codUsu: number
+	products: {
+		codProd: number
+		nomProd: string
+		preProd: number
+		imgProd: string
+		quantity: number
+	}[]
+}
 
 @Component({
 	selector: 'app-product-listing',
@@ -26,7 +39,12 @@ export class ProductListingComponent implements OnInit {
 	pageSize: number = 9
 	availablePageSizes: number[] = [9, 18, 36]
 
-	constructor(private storeService: StoreService, private router: Router, private toastr: ToastrService) {}
+	constructor(
+		private storeService: StoreService,
+		private router: Router,
+		private toastr: ToastrService,
+		private localStorageService: LocalStorageService,
+	) {}
 
 	ngOnInit(): void {
 		this.getData(this.pageNumber, this.pageSize)
@@ -53,5 +71,46 @@ export class ProductListingComponent implements OnInit {
 		this.pageSize = newPageSize
 		this.pageNumber = 1
 		this.getData(this.pageNumber, this.pageSize)
+	}
+
+	public addToCart(product: Product): void {
+		const localUser = JSON.parse(this.localStorageService.getItem('user') || 'null')
+		let localCart = JSON.parse(this.localStorageService.getItem('cart') || 'null') as Cart
+
+		if (localUser?.codUsu) {
+			if (localCart) {
+				const productInCart = localCart.products.find((p) => p.codProd === product.codProd)
+				if (productInCart) {
+					productInCart.quantity++
+					this.toastr.info('Cantidad actualizada.')
+				} else {
+					localCart.products.push({
+						codProd: product.codProd,
+						nomProd: product.nomProd,
+						preProd: product.preProd,
+						imgProd: product.imgProd,
+						quantity: 1,
+					})
+					this.toastr.info('Producto agregado al carrito.')
+				}
+				this.localStorageService.setItem('cart', JSON.stringify(localCart))
+			} else {
+				const newCart = {
+					id: 1,
+					codUsu: localUser.codUsu,
+					products: [
+						{
+							codProd: product.codProd,
+							nomProd: product.nomProd,
+							preProd: product.preProd,
+							imgProd: product.imgProd,
+							quantity: 1,
+						},
+					],
+				}
+				this.localStorageService.setItem('cart', JSON.stringify(newCart))
+				this.toastr.info('Producto agregado al carrito.')
+			}
+		}
 	}
 }

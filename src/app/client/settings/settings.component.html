@@ -1,0 +1,24 @@
+<div class="container py-3 w-25">
+	<h2>Configuración de la Cuenta</h2>
+	<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+		<div class="mb-3">
+			<label for="nomUsu" class="form-label">Nombre</label>
+			<input type="text" id="nomUsu" formControlName="nomUsu" class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label for="apeUsu" class="form-label">Apellido</label>
+			<input type="text" id="apeUsu" formControlName="apeUsu" class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label for="correoUsu" class="form-label">Correo Electrónico</label>
+			<input type="email" id="correoUsu" formControlName="correoUsu" class="form-control" />
+		</div>
+		<div class="mb-3">
+			<label for="fecUsu" class="form-label">Fecha</label>
+			<input type="date" id="fecUsu" formControlName="fecUsu" class="form-control" />
+		</div>
+		<button type="submit" class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2">
+			Actualizar
+		</button>
+	</form>
+</div>

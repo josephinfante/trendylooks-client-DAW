@@ -8,6 +8,9 @@ import { formatDateForInput } from '../../../utils/format-date'
 import { BackButtonDirective } from '../../directives/back-button.directive'
 import { CommonModule } from '@angular/common'
 import { UploadService } from '../../services/upload.service'
+import { CategoryService } from '../../services/category.service'
+import { Category } from '../../../types/category'
+import { FindAllResponse } from '../../../types/find-all-response'
 
 @Component({
 	selector: 'product-edit',
@@ -22,6 +25,7 @@ export class ProductEditComponent implements OnInit {
 	productForm: FormGroup
 	selectedFile: File | null = null
 	isLoading: boolean = false
+	categories: Category[] = []
 
 	constructor(
 		private fb: FormBuilder,
@@ -30,6 +34,7 @@ export class ProductEditComponent implements OnInit {
 		private router: Router,
 		private toastr: ToastrService,
 		private uploadService: UploadService,
+		private categoryService: CategoryService,
 	) {
 		this.productForm = this.fb.group({
 			codProd: [{ value: '', disabled: true }],
@@ -47,7 +52,10 @@ export class ProductEditComponent implements OnInit {
 	public ngOnInit(): void {
 		this.productId = this.activatedRoute.snapshot.params['id']
 		this.isEdit = !!this.productId
-		if (this.productId) this.getData()
+		if (this.productId) {
+			this.getData()
+		}
+		this.getCategories()
 	}
 
 	public getData(): void {
@@ -62,6 +70,16 @@ export class ProductEditComponent implements OnInit {
 				this.router.navigate(['/product'])
 				this.toastr.error(err.error.message)
 			},
+		})
+	}
+
+	public getCategories(): void {
+		this.categoryService.getAllCategories(1, 100).subscribe({
+			next: (res) => {
+				const response = res.body as FindAllResponse<Category>
+				this.categories = response.items
+			},
+			error: (err) => this.toastr.error(err.error.message),
 		})
 	}
 
@@ -105,15 +123,36 @@ export class ProductEditComponent implements OnInit {
 	}
 
 	public update(): void {
-		if (!this.productId) return
-		this.productService.updateProduct(this.productId, this.productForm.value).subscribe({
-			next: (res) => {
-				const response = res.body as { message: string }
-				this.toastr.success(response.message)
-				this.router.navigate(['/product'])
-			},
-			error: (err) => this.toastr.error(err.error.message),
-		})
+		if (this.productId === null) return
+		if (this.selectedFile) {
+			this.uploadService.uploadFile(this.selectedFile).subscribe({
+				next: (res) => {
+					this.productService
+						.updateProduct(this.productId as number, { ...this.productForm.value, imgProd: res.secure_url })
+						.subscribe({
+							next: (res) => {
+								const response = res.body as { message: string }
+								this.toastr.success(response.message)
+								this.router.navigate(['/product'])
+							},
+							error: (err) => this.toastr.error(err.error.message),
+						})
+				},
+				error: (err) => {
+					this.isLoading = false
+					this.toastr.error(err.error.message)
+				},
+			})
+		} else {
+			this.productService.updateProduct(this.productId, this.productForm.value).subscribe({
+				next: (res) => {
+					const response = res.body as { message: string }
+					this.toastr.success(response.message)
+					this.router.navigate(['/product'])
+				},
+				error: (err) => this.toastr.error(err.error.message),
+			})
+		}
 	}
 
 	public onSubmit(): void {
@@ -133,5 +172,10 @@ export class ProductEditComponent implements OnInit {
 		} else {
 			this.selectedFile = null
 		}
+	}
+
+	public deleteImage(): void {
+		this.selectedFile = null
+		this.productForm.get('imgProd')?.patchValue('')
 	}
 }

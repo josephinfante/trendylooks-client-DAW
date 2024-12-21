@@ -1,0 +1,55 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-info text-white text-center">
+                    <h5>Detalle de Pedido</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="codPed" class="form-label fw-bold text-info">Código del Pedido</label>
+                        <input type="text" id="codPed" class="form-control" value="{{ order?.codPed }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="codUsu" class="form-label fw-bold text-info">Código de Usuario</label>
+                        <input type="text" id="codUsu" class="form-control" value="{{ order?.codUsu }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="totPed" class="form-label fw-bold text-info">Total</label>
+                        <input type="text" id="totPed" class="form-control" value="{{ order?.totPed }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contPed" class="form-label fw-bold text-info">Contacto</label>
+                        <input type="text" id="contPed" class="form-control" value="{{ order?.contPed }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telPed" class="form-label fw-bold text-info">Teléfono</label>
+                        <input type="text" id="telPed" class="form-control" value="{{ order?.telPed }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dirPed" class="form-label fw-bold text-info">Dirección</label>
+                        <input type="text" id="dirPed" class="form-control" value="{{ order?.dirPed }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="estPed" class="form-label fw-bold text-info">Estado</label>
+                        <select id="estPed" class="form-select" disabled>
+                            <option [value]="'pendiente'" [selected]="order?.estPed === 'pendiente'">Pendiente</option>
+                            <option [value]="'en_proceso'" [selected]="order?.estPed === 'en_proceso'">En Proceso</option>
+                            <option [value]="'entregado'" [selected]="order?.estPed === 'entregado'">Entregado</option>
+                            <option [value]="'cancelado'" [selected]="order?.estPed === 'cancelado'">Cancelado</option>                               
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fecPed" class="form-label fw-bold text-info">Fecha</label>
+                        <input type="text" id="fecPed" class="form-control" value="{{ formatDate(order?.fecPed) }}" readonly>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="text-center">
+                        <button backButton class="btn btn-outline-danger">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

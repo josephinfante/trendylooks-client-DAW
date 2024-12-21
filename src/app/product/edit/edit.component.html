@@ -18,7 +18,9 @@
 		</div>
 		<div class="mb-3">
 			<label for="codCat" class="form-label">Categoria</label>
-			<input type="text" id="codCat" formControlName="codCat" class="form-control" />
+			<select id="codCat" formControlName="codCat" class="form-select">
+				<option *ngFor="let category of categories" value="{{ category.codCat }}">{{ category.nomCat }}</option>
+			</select>
 		</div>
 		<div class="mb-3">
 			<label for="prePro" class="form-label">Precio</label>
@@ -29,7 +31,9 @@
 			<input type="number" id="stockProd" formControlName="stockProd" class="form-control" />
 		</div>
 		<div class="mb-3" *ngIf="productForm.value.imgProd; else noImage">
-			<label class="form-label">Imagen</label>
+			<label class="form-label w-100"
+				>Imagen <button type="button" class="btn btn-danger btn-sm" (click)="deleteImage()">x</button></label
+			>
 			<img [src]="productForm.value.imgProd" alt="Product Image" class="img-fluid" />
 		</div>
 		<ng-template #noImage>

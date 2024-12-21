@@ -18,7 +18,14 @@ export class NavComponent implements OnInit {
 	userRole: string | null = null
 	user: { codUsu: number; nomUsu: string; apeUsu: string; correoUsu: string } | null = null
 
-	adminRoutes = [{ path: '/product', label: 'Productos' }]
+	adminRoutes = [
+		{ path: '/dashboard', label: 'Dashboard' },
+		{ path: '/user', label: 'Usuarios' },
+		{ path: '/product', label: 'Productos' },
+		{ path: '/category', label: 'Categorias' },
+		{ path: '/cart-detail', label: 'Detalles de carrito' },
+		{ path: '/order', label: 'Pedidos' },
+	]
 
 	clientRoutes = [{ path: '/product-listing', label: 'Productos' }]
 

@@ -1,0 +1,44 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <!-- Información de la categoría -->
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-info text-white text-center">
+          <h5>Detalle de Categoría</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="codCat" class="form-label fw-bold text-info">Código</label>
+            <input type="text" id="codCat" class="form-control" value="{{ category?.codCat }}" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="nomCat" class="form-label fw-bold text-info">Nombre</label>
+            <input type="text" id="nomCat" class="form-control" value="{{ category?.nomCat }}" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="estCat" class="form-label fw-bold text-info">Estado</label>
+            <div class="form-check">
+              <input 
+                type="checkbox" 
+                id="estCat" 
+                class="form-check-input" 
+                checked="{{ category?.estCat }}" 
+                disabled
+              />
+              <label class="form-check-label" for="estCat">Disponible</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="fecCat" class="form-label fw-bold text-info">Fecha</label>
+            <input type="text" id="fecCat" class="form-control" value="{{ formatDate(category?.fecCat) }}" readonly>
+          </div>
+
+          <!-- Botones -->
+          <div class="text-center">
+            <button backButton class="btn btn-outline-danger">Volver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

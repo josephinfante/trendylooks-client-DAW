@@ -1,0 +1,117 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg">
+                <div [ngClass]="isEdit ? 'bg-success text-white' : 'bg-primary text-white'" class="card-header text-center">
+                    <h5>{{ isEdit ? 'Editar Pedido' : 'Crear Pedido' }}</h5>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+                        <!-- Código solo en modo editar -->
+                        <div class="mb-3" *ngIf="isEdit">
+                            <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="codPed" class="form-label fw-bold">Código</label>
+                            <input 
+                                type="text" 
+                                id="codPed" 
+                                formControlName="codPed" 
+                                class="form-control" 
+                            />
+                        </div>
+
+                        <div class="mb-3" >
+                            <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="codUsu" class="form-label fw-bold">Usuario</label>
+                            <input 
+                                type="text" 
+                                id="codUsu" 
+                                formControlName="codUsu" 
+                                class="form-control" 
+                            />
+                        </div>
+
+                        <!-- Total -->
+                        <div class="mb-3">
+                            <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="totPed" class="form-label fw-bold">Total</label>
+                            <input 
+                                type="number" 
+                                id="totPed" 
+                                formControlName="totPed" 
+                                class="form-control" 
+                            />
+                        </div>
+
+                        <!-- Cliente -->
+                        <div class="mb-3">
+                            <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="contPed" class="form-label fw-bold">Cliente</label>
+                            <input 
+                                type="text" 
+                                id="contPed" 
+                                formControlName="contPed" 
+                                class="form-control" 
+                            />
+                        </div>
+
+                        <!-- Teléfono -->
+                        <div class="mb-3">
+                            <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="telPed" class="form-label fw-bold">Teléfono</label>
+                            <input 
+                                type="tel" 
+                                id="telPed" 
+                                formControlName="telPed" 
+                                class="form-control" 
+                            />
+                        </div>
+
+                        <!-- Dirección -->
+                        <div class="mb-3">
+                            <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="dirPed" class="form-label fw-bold">Dirección</label>
+                            <input 
+                                type="text" 
+                                id="dirPed" 
+                                formControlName="dirPed" 
+                                class="form-control" 
+                            />
+                        </div>
+
+                        <!-- Estado solo en modo editar -->
+                        <div class="mb-3" *ngIf="isEdit">
+                            <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="estPed" class="form-label fw-bold">Estado</label>
+                            <select 
+                                id="estPed" 
+                                formControlName="estPed" 
+                                class="form-select">
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="En proceso">En proceso</option>
+                                <option value="Enviado">Enviado</option>
+                                <option value="Entregado">Entregado</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+                        </div>
+
+                        <!-- Fecha solo en modo editar -->
+                        <div class="mb-3" *ngIf="isEdit">
+                            <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="fecPed" class="form-label fw-bold">Fecha</label>
+                            <input 
+                                type="date" 
+                                id="fecPed" 
+                                formControlName="fecPed" 
+                                class="form-control" 
+                            />
+                        </div>
+
+                        <div class="text-center">
+                            <button 
+                                [ngClass]="isEdit ? 'btn-outline-success' : 'btn-outline-primary'" 
+                                type="submit" 
+                                class="btn me-2">
+                                {{ isEdit ? 'Actualizar' : 'Registrar' }}
+                            </button>
+                            <button type="button" backButton class="btn btn-outline-danger">
+                                Volver
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

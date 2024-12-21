@@ -41,8 +41,8 @@
 					>
 						Cliente
 					</a>
-					<ul class="dropdown-menu" aria-labelledby="adminClientDropdown" *ngFor="let route of clientRoutes">
-						<li>
+					<ul class="dropdown-menu" aria-labelledby="adminClientDropdown">
+						<li *ngFor="let route of clientRoutes">
 							<a class="dropdown-item" [routerLink]="[route.path]">{{ route.label }}</a>
 						</li>
 					</ul>
@@ -58,8 +58,8 @@
 					>
 						Administrador
 					</a>
-					<ul class="dropdown-menu" aria-labelledby="adminDropdown" *ngFor="let route of adminRoutes">
-						<li>
+					<ul class="dropdown-menu" aria-labelledby="adminDropdown">
+						<li *ngFor="let route of adminRoutes">
 							<a class="dropdown-item" [routerLink]="[route.path]">{{ route.label }}</a>
 						</li>
 					</ul>

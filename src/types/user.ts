@@ -2,7 +2,9 @@ export type User = {
 	codUsu: number
 	nomUsu: string
 	apeUsu: string
-	emailUsu: string
+	correoUsu: string
 	contraUsu: string
-	rolUsu: string
+	rolUsu: number
+	estUsu: number
+	fecUsu: string
 }

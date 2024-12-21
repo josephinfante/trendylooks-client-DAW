@@ -1,0 +1,10 @@
+.navbar-nav {
+	align-items: center;
+}
+
+@media (max-width: 991px) {
+	#userDropdownList {
+		position: absolute !important;
+		right: unset !important;
+	}
+}

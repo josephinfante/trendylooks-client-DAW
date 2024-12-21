@@ -77,4 +77,8 @@ export class ProductComponent implements OnInit {
 			error: (err) => this.toastr.error(err.error.message),
 		})
 	}
+
+	public goToCreate(): void {
+		this.router.navigate(['product/create'])
+	}
 }

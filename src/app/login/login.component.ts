@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ToastrService } from 'ngx-toastr'
 import { UserService } from '../services/user.service'
 import { HttpResponse } from '@angular/common/http'
+import { LocalStorageService } from '../services/local-storage.service'
+import { Router } from '@angular/router'
 
 @Component({
 	selector: 'app-login',
@@ -15,7 +17,13 @@ import { HttpResponse } from '@angular/common/http'
 export class LoginComponent implements OnInit {
 	loginForm: FormGroup
 
-	constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private userService: UserService) {
+	constructor(
+		private formBuilder: FormBuilder,
+		private toastr: ToastrService,
+		private userService: UserService,
+		private localStorageService: LocalStorageService,
+		private router: Router,
+	) {
 		this.loginForm = this.formBuilder.group({
 			email: ['', [Validators.required, Validators.email]],
 			password: ['', [Validators.required]],
@@ -32,11 +40,16 @@ export class LoginComponent implements OnInit {
 		}
 		this.userService.loginUser(this.loginForm.value.email, this.loginForm.value.password).subscribe({
 			next: (res: HttpResponse<any>) => {
-				// const response = res.body as { message: string }
-				// const token = res.headers.get('Token')
-				// console.log(token)
-				// this.toastr.success(response.message)
-				console.log(res.body, res.headers.get('token'), res.headers)
+				const token = res.headers.get('token')
+				const role = res.headers.get('role')
+				if (!token || !role) throw new Error('No token found.')
+				this.localStorageService.setItem('token', token)
+				this.localStorageService.setItem('role', role)
+				this.localStorageService.setItem('user', JSON.stringify(res.body?.user))
+				this.toastr.success(res.body.message)
+
+				if (role == 'user') return this.router.navigate(['product-listing'])
+				return this.router.navigate(['product'])
 			},
 			error: (err) => this.toastr.error(err.error.message),
 		})

@@ -7,7 +7,7 @@
 				<img [src]="product.imgProd" class="card-img-top" alt="Product image" />
 				<div class="card-body">
 					<h5 class="card-title">{{ product.nomProd }}</h5>
-					<p class="card-text">{{ product.preProd | currency: 'PEN':'symbol' }}</p>
+					<p class="card-text">{{ product.preProd | currency: 'PEN ':'symbol' }}</p>
 					<p class="card-text">
 						<span *ngIf="product.estProd; else outOfStock" class="badge bg-success">En stock</span>
 						<ng-template #outOfStock>

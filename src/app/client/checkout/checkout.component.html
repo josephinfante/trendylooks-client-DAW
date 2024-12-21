@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+	<div class="card" style="width: 500px">
+		<div class="card-body">
+			<h5 class="card-title text-center">Checkout</h5>
+			<form>
+				<div class="form-group mb-3">
+					<label for="name">Nombre y Apellido</label>
+					<input type="text" id="name" class="form-control" formControlName="name" placeholder="John Doe" required />
+				</div>
+
+				<div class="form-group mb-3">
+					<label for="address">Dirección</label>
+					<input
+						type="text"
+						id="address"
+						class="form-control"
+						formControlName="address"
+						placeholder="1234 Main St, City"
+						required
+					/>
+				</div>
+
+				<div class="form-group mb-3">
+					<label for="creditCard">Número de Tarjeta</label>
+					<input
+						type="text"
+						id="creditCard"
+						class="form-control"
+						formControlName="creditCard"
+						placeholder="**** **** **** ****"
+						required
+					/>
+				</div>
+
+				<div class="form-group mb-3">
+					<label for="expiryDate">Fecha de Expiración</label>
+					<input
+						type="text"
+						id="expiryDate"
+						class="form-control"
+						formControlName="expiryDate"
+						placeholder="MM/YY"
+						required
+					/>
+				</div>
+
+				<div class="form-group mb-3">
+					<label for="cvv">CVV</label>
+					<input type="text" id="cvv" class="form-control" formControlName="cvv" placeholder="***" required />
+				</div>
+
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary w-100">Proceder al Pago</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

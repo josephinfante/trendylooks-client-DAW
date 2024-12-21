@@ -1,0 +1,92 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+	<div class="card" style="width: 400px">
+		<div class="card-body">
+			<h5 class="card-title text-center">Registro de Usuario</h5>
+			<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-4">
+				<!-- Nombre -->
+				<div class="form-group">
+					<label for="nomUsu">Nombre:</label>
+					<input
+						type="text"
+						id="nomUsu"
+						class="form-control"
+						formControlName="nomUsu"
+						[ngClass]="{
+							'is-invalid': registerForm.get('nomUsu')?.invalid && registerForm.get('nomUsu')?.touched
+						}"
+					/>
+					<div
+						*ngIf="registerForm.get('nomUsu')?.invalid && registerForm.get('nomUsu')?.touched"
+						class="invalid-feedback"
+					>
+						<div *ngIf="registerForm.get('nomUsu')?.errors?.['required']">El nombre es requerido.</div>
+					</div>
+				</div>
+
+				<!-- Apellido -->
+				<div class="form-group">
+					<label for="apeUsu">Apellido:</label>
+					<input
+						type="text"
+						id="apeUsu"
+						class="form-control"
+						formControlName="apeUsu"
+						[ngClass]="{
+							'is-invalid': registerForm.get('apeUsu')?.invalid && registerForm.get('apeUsu')?.touched
+						}"
+					/>
+					<div
+						*ngIf="registerForm.get('apeUsu')?.invalid && registerForm.get('apeUsu')?.touched"
+						class="invalid-feedback"
+					>
+						<div *ngIf="registerForm.get('apeUsu')?.errors?.['required']">El apellido es requerido.</div>
+					</div>
+				</div>
+
+				<!-- Correo -->
+				<div class="form-group">
+					<label for="correoUsu">Correo Electrónico:</label>
+					<input
+						type="email"
+						id="correoUsu"
+						class="form-control"
+						formControlName="correoUsu"
+						[ngClass]="{
+							'is-invalid': registerForm.get('correoUsu')?.invalid && registerForm.get('correoUsu')?.touched
+						}"
+					/>
+					<div
+						*ngIf="registerForm.get('correoUsu')?.invalid && registerForm.get('correoUsu')?.touched"
+						class="invalid-feedback"
+					>
+						<div *ngIf="registerForm.get('correoUsu')?.errors?.['required']">El correo es requerido.</div>
+						<div *ngIf="registerForm.get('correoUsu')?.errors?.['email']">El correo es inválido.</div>
+					</div>
+				</div>
+
+				<!-- Contraseña -->
+				<div class="form-group">
+					<label for="contraUsu">Contraseña:</label>
+					<input
+						type="password"
+						id="contraUsu"
+						class="form-control"
+						formControlName="contraUsu"
+						[ngClass]="{
+							'is-invalid': registerForm.get('contraUsu')?.invalid && registerForm.get('contraUsu')?.touched
+						}"
+					/>
+					<div
+						*ngIf="registerForm.get('contraUsu')?.invalid && registerForm.get('contraUsu')?.touched"
+						class="invalid-feedback"
+					>
+						<div *ngIf="registerForm.get('contraUsu')?.errors?.['required']">La contraseña es requerida.</div>
+					</div>
+				</div>
+
+				<!-- Submit Button -->
+				<button type="submit" class="btn btn-primary">Registrarse</button>
+			</form>
+		</div>
+	</div>
+</div>

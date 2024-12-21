@@ -1,0 +1,23 @@
+<div class="container py-5">
+  <div class="card">
+    <div class="card-header text-center">
+      <h2 class="card-title mb-0">Dashboard de Administradores</h2>
+    </div>
+
+    <div class="card-body">
+      <div class="dashboard">
+ 
+        <div class="row g-4 d-flex justify-content-center">
+          <div *ngFor="let card of cards" class="col-md-6 col-lg-4">
+            <app-dashboard-card [cardData]="card"></app-dashboard-card>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Puedes agregar un pie de página para la tarjeta si es necesario -->
+    <div class="card-footer text-center">
+      <small class="text-muted">Gestión de Administradores</small>
+    </div>
+  </div>
+</div>

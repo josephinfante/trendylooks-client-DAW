@@ -2,7 +2,7 @@
 	<div class="card" style="width: 500px">
 		<div class="card-body">
 			<h5 class="card-title text-center">Checkout</h5>
-			<form>
+			<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
 				<div class="form-group mb-3">
 					<label for="name">Nombre y Apellido</label>
 					<input type="text" id="name" class="form-control" formControlName="name" placeholder="John Doe" required />
@@ -22,14 +22,33 @@
 
 				<div class="form-group mb-3">
 					<label for="creditCard">Número de Tarjeta</label>
-					<input
-						type="text"
-						id="creditCard"
-						class="form-control"
-						formControlName="creditCard"
-						placeholder="**** **** **** ****"
-						required
-					/>
+					<div class="input-group">
+						<!-- Dynamic Card Icon -->
+						<div class="input-group-prepend">
+							<span
+								class="input-group-text"
+								style="
+									height: 46px;
+									padding: 0.5rem;
+									font-size: 25px;
+									border-top-right-radius: 0;
+									border-bottom-right-radius: 0;
+								"
+							>
+								<fa-icon [icon]="cardTypeIcon"></fa-icon>
+							</span>
+						</div>
+						<input
+							type="text"
+							id="creditCard"
+							class="form-control"
+							formControlName="creditCard"
+							placeholder="**** **** **** ****"
+							(input)="onCardNumberInput()"
+							[maxLength]="cardNumberMaxLength"
+							required
+						/>
+					</div>
 				</div>
 
 				<div class="form-group mb-3">
@@ -47,6 +66,12 @@
 				<div class="form-group mb-3">
 					<label for="cvv">CVV</label>
 					<input type="text" id="cvv" class="form-control" formControlName="cvv" placeholder="***" required />
+				</div>
+
+				<div class="form-group mb-3">
+					<p class="text-muted" style="font-weight: 600">
+						Precio Total: <span style="font-weight: normal">{{ totalPrice | currency: 'PEN ':'symbol' }}</span>
+					</p>
 				</div>
 
 				<div class="text-center">

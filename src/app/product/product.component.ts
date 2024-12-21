@@ -81,4 +81,8 @@ export class ProductComponent implements OnInit {
 	public goToCreate(): void {
 		this.router.navigate(['product/create'])
 	}
+
+	public goToDashboard(): void {
+		this.router.navigate(['dashboard'])
+	}
 }

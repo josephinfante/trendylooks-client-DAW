@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { formatDateForInput } from '../../../utils/format-date'
 import { BackButtonDirective } from '../../directives/back-button.directive'
 import { CommonModule } from '@angular/common'
+import { UploadService } from '../../services/upload.service'
 
 @Component({
 	selector: 'product-edit',
@@ -19,6 +20,8 @@ export class ProductEditComponent implements OnInit {
 	isEdit: boolean = true
 	productId: number | null = null
 	productForm: FormGroup
+	selectedFile: File | null = null
+	isLoading: boolean = false
 
 	constructor(
 		private fb: FormBuilder,
@@ -26,6 +29,7 @@ export class ProductEditComponent implements OnInit {
 		private productService: ProductService,
 		private router: Router,
 		private toastr: ToastrService,
+		private uploadService: UploadService,
 	) {
 		this.productForm = this.fb.group({
 			codProd: [{ value: '', disabled: true }],
@@ -34,6 +38,7 @@ export class ProductEditComponent implements OnInit {
 			codCat: ['', Validators.required],
 			preProd: [0, [Validators.required, Validators.min(0)]],
 			stockProd: [0, [Validators.required, Validators.min(0)]],
+			imgProd: [''],
 			estProd: [true],
 			fecProd: [{ value: new Date(), disabled: true }],
 		})
@@ -63,14 +68,40 @@ export class ProductEditComponent implements OnInit {
 	public create(): void {
 		delete this.productForm.value.codProd
 		delete this.productForm.value.fecProd
-		this.productService.createProduct(this.productForm.value).subscribe({
-			next: (res) => {
-				const response = res.body as { message: string }
-				this.toastr.success(response.message)
-				this.router.navigate(['/product'])
-			},
-			error: (err) => this.toastr.error(err.error.message),
-		})
+		if (this.selectedFile) {
+			this.uploadService.uploadFile(this.selectedFile).subscribe({
+				next: (res) => {
+					this.productService.createProduct({ ...this.productForm.value, imgProd: res.secure_url }).subscribe({
+						next: (res) => {
+							const response = res.body as { message: string }
+							this.toastr.success(response.message)
+							this.router.navigate(['/product'])
+							this.isLoading = false
+						},
+						error: (err) => {
+							this.isLoading = false
+							this.toastr.error(err.error.message)
+						},
+					})
+				},
+				error: (err) => {
+					this.isLoading = false
+					this.toastr.error(err.error.message)
+				},
+			})
+		} else {
+			this.productService.createProduct(this.productForm.value).subscribe({
+				next: (res) => {
+					const response = res.body as { message: string }
+					this.toastr.success(response.message)
+					this.router.navigate(['/product'])
+				},
+				error: (err) => {
+					this.isLoading = false
+					this.toastr.error(err.error.message)
+				},
+			})
+		}
 	}
 
 	public update(): void {
@@ -87,9 +118,20 @@ export class ProductEditComponent implements OnInit {
 
 	public onSubmit(): void {
 		if (this.productForm.valid) {
+			this.productForm.disable()
+			this.isLoading = true
 			this.isEdit ? this.update() : this.create()
 		} else {
 			this.toastr.error('Please fill out the form correctly.')
+		}
+	}
+
+	public onFileSelected(event: any) {
+		const fileList: FileList = event.target.files
+		if (fileList.length > 0) {
+			this.selectedFile = fileList[0]
+		} else {
+			this.selectedFile = null
 		}
 	}
 }

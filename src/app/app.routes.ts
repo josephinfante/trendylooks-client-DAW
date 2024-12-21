@@ -3,6 +3,7 @@ import { ProductComponent } from './product/product.component'
 import { ProductDetailsComponent } from './product/details/details.component'
 import { ProductEditComponent } from './product/edit/edit.component'
 import { LoginComponent } from './login/login.component'
+import { ProductListingComponent } from './client/product-listing/product-listing.component'
 
 export const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
@@ -10,4 +11,7 @@ export const routes: Routes = [
 	{ path: 'product/create', component: ProductEditComponent },
 	{ path: 'product/:id', component: ProductDetailsComponent },
 	{ path: 'product/edit/:id', component: ProductEditComponent },
+
+	// client routes
+	{ path: 'product-listing', component: ProductListingComponent },
 ]

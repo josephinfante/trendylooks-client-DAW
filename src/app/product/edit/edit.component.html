@@ -1,4 +1,4 @@
-<div class="container mt-5 w-50">
+<div class="container py-3 w-50">
 	<div class="d-flex justify-content-between align-items-center">
 		<button backButton class="btn btn-dark mb-3">Volver</button>
 		<h2>{{ isEdit ? 'Editar' : 'Crear' }} Producto</h2>
@@ -28,7 +28,17 @@
 			<label for="stockProd" class="form-label">Stock</label>
 			<input type="number" id="stockProd" formControlName="stockProd" class="form-control" />
 		</div>
-		<div class="mb-3">
+		<div class="mb-3" *ngIf="productForm.value.imgProd; else noImage">
+			<label class="form-label">Imagen</label>
+			<img [src]="productForm.value.imgProd" alt="Product Image" class="img-fluid" />
+		</div>
+		<ng-template #noImage>
+			<div class="mb-3">
+				<label for="imgProd" class="form-label">Imagen</label>
+				<input type="file" id="imgProd" class="form-control" (change)="onFileSelected($event)" accept="image/*" />
+			</div>
+		</ng-template>
+		<div class="mb-3" *ngIf="isEdit">
 			<label class="form-check-label">
 				<input type="checkbox" formControlName="estProd" class="form-check-input" />
 				Disponible
@@ -38,6 +48,8 @@
 			<label for="fecProd" class="form-label">Fecha</label>
 			<input type="date" id="fecProd" formControlName="fecProd" class="form-control" />
 		</div>
-		<button type="submit" class="btn btn-primary w-100">{{ isEdit ? 'Actualizar' : 'Registrar' }}</button>
+		<button type="submit" class="btn btn-primary w-100 d-flex justify-content-center align-items-center gap-2">
+			<span *ngIf="isLoading" class="loader"></span> {{ isEdit ? 'Actualizar' : 'Registrar' }}
+		</button>
 	</form>
 </div>

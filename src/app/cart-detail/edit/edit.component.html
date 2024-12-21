@@ -1,0 +1,66 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg">
+          <!-- Cambiar dinámicamente entre bg-success y bg-primary -->
+          <div [ngClass]="isEdit ? 'bg-success text-white' : 'bg-primary text-white'" class="card-header text-center">
+            <h5>{{ isEdit ? 'Editar Detalle Carrito' : 'Crear Detalle Carrito' }}</h5>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="cartDetailForm" (ngSubmit)="onSubmit()">
+              <div *ngIf="isEdit" class="mb-3">
+                <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="codDetCarr" class="form-label fw-bold">Código</label>
+                <input 
+                    type="text" 
+                    id="codDetCarr" 
+                    formControlName="codDetCarr" 
+                    class="form-control" 
+                    [readonly]="isEdit"
+                />
+              </div>
+              <div class="mb-3">
+                <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="codCarr" class="form-label fw-bold">Carrito</label>
+                <input 
+                  type="text" 
+                  id="codCarr" 
+                  formControlName="codCarr" 
+                  class="form-control" 
+                />
+              </div>
+              <div class="mb-3">
+                <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="codProd" class="form-label fw-bold">Producto</label>
+                <input 
+                  type="text" 
+                  id="codProd" 
+                  formControlName="codProd" 
+                  class="form-control" 
+                />
+              </div>
+              <div class="mb-3">
+                <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="canDetCarr" class="form-label fw-bold">Cantidad</label>
+                <input 
+                  type="text" 
+                  id="canDetCarr" 
+                  formControlName="canDetCarr" 
+                  class="form-control" 
+                />
+              </div>
+              <!-- Botones -->
+              <div class="text-center">
+                <button 
+                  [ngClass]="isEdit ? 'btn-outline-success' : 'btn-outline-primary'" 
+                  type="submit" 
+                  class="btn me-2">
+                  {{ isEdit ? 'Actualizar' : 'Registrar' }}
+                </button>
+                <button type="button" backButton class="btn btn-outline-danger">
+                  Volver
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

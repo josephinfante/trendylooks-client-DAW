@@ -1,52 +1,30 @@
-<div class="container mt-5">
-  <div class="d-flex justify-content-between align-items-center">
-    <button backButton class="btn btn-dark mb-3">Volver</button>
-    <h2>Detalle Producto</h2>
-  </div>
-  <div class="card">
-    <div class="row g-0">
-      <div class="col-md-4 d-flex justify-content-center py-3">
-        <img
-          [src]="product?.imgProd"
-          class="img-fluid"
-          alt="{{ product?.nomProd }}"
-        />
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">{{ product?.nomProd }}</h5>
-          <p class="card-text">
-            <strong>Descripción:</strong> {{ product?.descProd }}
-          </p>
-          <p class="card-text">
-            <strong>Código:</strong> {{ product?.codProd }}
-          </p>
-          <p class="card-text">
-            <strong>Categoria:</strong> {{ product?.codCat }}
-          </p>
-          <p class="card-text">
-            <strong>Precio:</strong> {{ product?.preProd }}
-          </p>
-          <p class="card-text">
-            <strong>Stock:</strong> {{ product?.stockProd }}
-          </p>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="available"
-              [checked]="product?.estProd"
-              disabled
-            />
-            <label class="form-check-label" for="available"> Disponible </label>
-          </div>
-          <p class="card-text mt-3">
-            <small class="text-muted"
-              >Fecha: {{ formatDate(product?.fecProd) }}</small
-            >
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="container py-3">
+	<div class="d-flex justify-content-between align-items-center">
+		<button backButton class="btn btn-dark mb-3">Volver</button>
+		<h2>Detalle Producto</h2>
+	</div>
+	<div class="card">
+		<div class="row g-0">
+			<div class="col-md-4 d-flex justify-content-center py-3">
+				<img [src]="product?.imgProd" class="img-fluid" alt="{{ product?.nomProd }}" />
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title">{{ product?.nomProd }}</h5>
+					<p class="card-text"><strong>Descripción:</strong> {{ product?.descProd }}</p>
+					<p class="card-text"><strong>Código:</strong> {{ product?.codProd }}</p>
+					<p class="card-text"><strong>Categoria:</strong> {{ product?.nomCat }}</p>
+					<p class="card-text"><strong>Precio:</strong> {{ product?.preProd }}</p>
+					<p class="card-text"><strong>Stock:</strong> {{ product?.stockProd }}</p>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" id="available" [checked]="product?.estProd" disabled />
+						<label class="form-check-label" for="available"> Disponible </label>
+					</div>
+					<p class="card-text mt-3">
+						<small class="text-muted">Fecha: {{ formatDate(product?.fecProd) }}</small>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

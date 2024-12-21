@@ -44,7 +44,10 @@ export class RegisterComponent implements OnInit {
 				this.toastr.success(res.body.message)
 				return this.router.navigate(['login'])
 			},
-			error: (err) => this.toastr.error(err.error.message),
+			error: (err) => {
+				if (err.error.message.includes('Duplicate entry')) this.toastr.error('User already exists.')
+				else this.toastr.error(err.error.message)
+			},
 		})
 	}
 }

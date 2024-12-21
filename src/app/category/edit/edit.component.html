@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg">
+        <!-- Cambiar dinámicamente entre bg-success y bg-primary -->
+        <div [ngClass]="isEdit ? 'bg-success text-white' : 'bg-primary text-white'" class="card-header text-center">
+          <h5>{{ isEdit ? 'Editar Categoría' : 'Crear Categoría' }}</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3" *ngIf="isEdit">
+              <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="codCat" class="form-label fw-bold">Código</label>
+              <input 
+                type="text" 
+                id="codCat" 
+                formControlName="codCat" 
+                class="form-control" 
+              />
+            </div>
+            <div class="mb-3">
+              <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="nomCat" class="form-label fw-bold">Nombre</label>
+              <input 
+                type="text" 
+                id="nomCat" 
+                formControlName="nomCat" 
+                class="form-control" 
+              />
+            </div>
+            <div class="mb-3">
+              <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" class="form-check-label">
+                <input 
+                  type="checkbox" 
+                  formControlName="estCat" 
+                  class="form-check-input" 
+                />
+                Disponible
+              </label>
+            </div>
+            <div class="mb-3" *ngIf="isEdit">
+              <label [ngClass]="isEdit ? 'text-success' : 'text-primary'" for="fecCat" class="form-label fw-bold">Fecha</label>
+              <input 
+                type="date" 
+                id="fecCat" 
+                formControlName="fecCat" 
+                class="form-control" 
+              />
+            </div>
+            <!-- Botones -->
+            <div class="text-center">
+              <button 
+                [ngClass]="isEdit ? 'btn-outline-success' : 'btn-outline-primary'" 
+                type="submit" 
+                class="btn me-2">
+                {{ isEdit ? 'Actualizar' : 'Registrar' }}
+              </button>
+              <button type="button" backButton class="btn btn-outline-danger">
+                Volver
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
